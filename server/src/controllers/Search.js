@@ -4,33 +4,20 @@ import StatisticModel from '../models/Statistic';
 
 class SearchController {
 
-    static getITunes(req, res) {
+    static async getITunes(req, res) {
         const {search}  = req.params;
         const urlReq = `https://itunes.apple.com/search?term=${search}&limit=25&kind=song,musicVideo`;
-        axios.get(urlReq)
-            .then(function (response) {
-                StatisticModel.updateOne({ search : search }, { $inc: { count: 1 } }, {upsert: true},function(err) {
-                    if (err) {
-                        console.log(err)
-                    }
-                    return res.json(response.data)
-                })
-            }).catch(function(err) {
-                return res.json({'error': err})
-            }
-        )
+        const response = await axios.get(urlReq);
+        StatisticModel.updateOne({ search : search }, { $inc: { count: 1 } }, {upsert: true},() =>{
+            return res.json(response.data)
+        });
     }
 
-    static getTrack(req,res){
+    static async getTrack(req,res){
         const {trackId}  = req.params;
         const urlReq = `https://itunes.apple.com/lookup?id=${trackId}`;
-        axios.get(urlReq)
-            .then(function (response) {
-                return res.json(response.data)
-            }).catch(function(err) {
-                return res.json({'error': err})
-            }
-        )
+        const response = await axios.get(urlReq);
+        return res.json(response.data);
     }
 }
 

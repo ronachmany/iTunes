@@ -3,13 +3,9 @@ import StatisticModel from '../models/Statistic';
 
 class StatisticController {
 
-    static getTopTen(req, res){
-        StatisticModel.find({}).limit(10).sort({count:-1}).then((topTen, err)=>{
-            if(err){
-                console.log(err)
-            }
-            return res.json(topTen);
-        });
+    static async getTopTen(req, res){
+        const topTen = await StatisticModel.find({}).limit(10).sort({count:-1});
+        return res.json(topTen);
     }
 }
 

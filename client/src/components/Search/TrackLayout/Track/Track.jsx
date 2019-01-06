@@ -25,7 +25,7 @@ export function Track(props) {
                                   justify="flex-start"
                                   alignItems="flex-start">
                                 <Grid item>
-                                    tack name: {trackName}
+                                    track name: {trackName}
                                 </Grid>
                                 <Grid item>
                                     artist: {artistName}
