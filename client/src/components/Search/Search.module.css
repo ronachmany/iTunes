@@ -1,0 +1,12 @@
+.searchBar {
+    padding: 0px 10px;
+    margin: 20px;
+}
+
+.search-button {
+    padding: 10px;
+}
+
+.grow{
+    flex-grow: 1;
+}
